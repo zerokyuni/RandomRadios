@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title 1: 웹사이트 열기 (위 HTML 주소)
-   * **동작 2: (추가) 터치 매크로 >Random Radio Launcher</title>
+    <title>Random Radio Launcher</title>
     <style>
         /* 화면 전체를 덮는 버튼 스타일 */
         body, html {
@@ -12,30 +11,28 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            background-color: #12➔ 웹페이지 정중앙을 '톡' 한 번 터치하는 매크로를 만들어 추가해 줍니다.** 
-
-이렇게 하면 웹페이지가 열1212; /* 눈부심 방지 다크 모드 */
+            background-color: #121212; /* 눈부심 방지 다크 모드 */
             display: flex;
             justify-content: center;
-            align-items린 직후 터치 매크로가 화면을 한 번 눌러주기 때문에 브라우저의 보안 정책(사용자 터치 시에만 앱 실행 허용): center;
+            align-items: center;
         }
         #launchBtn {
             width: 100vw;
             height: 100vh;
-            background-이 통과되어 즉시 랜덤 라디오 앱으로 넘어가게 됩니다. 그 후 각 앱이 켜지면 준비해 두신 루틴 2~color: transparent;
+            background-color: transparent;
             border: none;
             color: #ffffff;
             font-size: 1.2rem;
-            cursor5번의 '앱별 재생 매크로'가 연달아 작동합니다.: pointer;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <!-- 화면 전체가 하나의 거대한 버튼이 됩니다 -->
     <button id="launchBtn" onclick="launchRadio()">화면을 터치하면 무작위 라디오가 켜집니다</button>
 
     <script>
         function launchRadio() {
+            // 라디오 앱 4종의 안드로이드 인텐트(Intent) URI 배열
             const radioApps = [
                 "intent://#Intent;package=com.imbc.mini;end",    // MBC mini
                 "intent://#Intent;package=kr.co.kbs.kong;end",   // KBS Kong
@@ -43,7 +40,10 @@
                 "intent://#Intent;package=com.sbs.gorilla;end"   // SBS 고릴라
             ];
             
+            // 0에서 3 사이의 난수 생성하여 무작위 추출
             const randomIndex = Math.floor(Math.random() * radioApps.length);
+            
+            // 선택된 라디오 앱으로 즉시 리다이렉션
             window.location.href = radioApps[randomIndex];
         }
     </script>
