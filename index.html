@@ -3,49 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Radio Launcher</title>
+    <title>랜덤 라디오 실행기</title>
+    <!-- Tailwind CSS (가벼운 디자인용) -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 화면 전체를 덮는 버튼 스타일 */
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #121212; /* 눈부심 방지 다크 모드 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #launchBtn {
-            width: 100vw;
-            height: 100vh;
-            background-color: transparent;
-            border: none;
-            color: #ffffff;
-            font-size: 1.2rem;
-            cursor: pointer;
+        /* 터치 시 하이라이트 방지 */
+        * {
+            -webkit-tap-highlight-color: transparent;
         }
     </style>
 </head>
-<body>
-    <button id="launchBtn" onclick="launchRadio()">화면을 터치하면 무작위 라디오가 켜집니다</button>
+<body class="bg-slate-900 h-screen w-screen m-0 overflow-hidden">
+    
+    <!-- 화면 전체를 덮는 투명 버튼 -->
+    <button id="launchBtn" onclick="launchRadio()" class="w-full h-full flex flex-col items-center justify-center focus:outline-none active:bg-slate-800/50 transition-colors">
+        
+        <div class="mb-6 p-6 bg-slate-800 rounded-full shadow-lg">
+            <!-- 간단한 라디오 SVG 아이콘 -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="2"></circle>
+                <path d="M4.93 19.07a10 10 0 0 1 0-14.14"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                <path d="M8.46 15.54a5 5 0 0 1 0-7.07"></path>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+        </div>
+
+        <h1 class="text-2xl font-bold text-white mb-2 tracking-tight">화면을 터치하세요</h1>
+        <p class="text-slate-400 text-sm">무작위 라디오 앱이 실행됩니다</p>
+
+        <!-- 디버그용 안내 메시지 (초기엔 숨김) -->
+        <p id="statusMsg" class="mt-8 text-indigo-400 text-sm opacity-0 transition-opacity font-medium"></p>
+    </button>
 
     <script>
         function launchRadio() {
-            // 라디오 앱 4종의 안드로이드 인텐트(Intent) URI 배열
+            // 버튼 상태 변경 피드백
+            const statusMsg = document.getElementById('statusMsg');
+            statusMsg.innerText = "라디오 앱을 연결 중입니다...";
+            statusMsg.classList.remove('opacity-0');
+
+            // 정확한 패키지명과 실행 플래그가 포함된 배열
             const radioApps = [
                 "intent://#Intent;package=com.imbc.mini;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10000000;end",    // MBC mini
                 "intent://#Intent;package=kr.co.kbs.kong;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10000000;end",   // KBS Kong
-                "intent://#Intent;package=kr.co.ebs.bandi;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10000000;end",  // EBS 반디
-                "intent://#Intent;package=com.sbs.gorilla;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10000000;end"   // SBS 고릴라
+                "intent://#Intent;package=kr.ebs.bandi;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10000000;end",      // EBS 반디
+                "intent://#Intent;package=com.appgate.gorealra;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10000000;end" // SBS 고릴라
             ];
             
-            // 0에서 3 사이의 난수 생성하여 무작위 추출
+            // 난수 생성 및 무작위 추출
             const randomIndex = Math.floor(Math.random() * radioApps.length);
             
-            // 선택된 라디오 앱으로 즉시 리다이렉션
+            // 스마트폰 인텐트 실행
             window.location.href = radioApps[randomIndex];
+
+            // 1초 후 메시지 초기화 (앱에서 다시 브라우저로 돌아왔을 때를 대비)
+            setTimeout(() => {
+                statusMsg.classList.add('opacity-0');
+            }, 1000);
         }
     </script>
 </body>
 </html>
+
