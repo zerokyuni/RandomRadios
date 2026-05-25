@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Radio Launcher</title>
+    <script>
+        window.onload = function() {
+            // 라디오 앱 4종의 안드로이드 인텐트(Intent) URI 배열
+            const radioApps = [
+                "intent:#Intent;package=com.imbc.mini;end",    // MBC mini
+                "intent:#Intent;package=kr.co.kbs.kong;end",   // KBS Kong
+                "intent:#Intent;package=kr.co.ebs.bandi;end",  // EBS 반디
+                "intent:#Intent;package=com.sbs.gorilla;end"   // SBS 고릴라
+            ];
+            
+            // 0에서 3 사이의 난수 생성하여 무작위 추출
+            const randomIndex = Math.floor(Math.random() * radioApps.length);
+            
+            // 선택된 라디오 앱으로 즉시 리다이렉션
+            window.location.href = radioApps[randomIndex];
+        }
+    </script>
+</head>
+<body>
+    <p>랜덤 라디오 채널을 연결 중입니다...</p>
+</body>
+</html>
