@@ -34,10 +34,10 @@
         function launchRadio() {
             // 라디오 앱 4종의 안드로이드 인텐트(Intent) URI 배열
             const radioApps = [
-                "intent://#Intent;package=com.imbc.mini;end",    // MBC mini
-                "intent://#Intent;package=kr.co.kbs.kong;end",   // KBS Kong
-                "intent://#Intent;package=kr.ebs.bandi;end",  // EBS 반디
-                "intent://#Intent;package=com.appgate.gorealra;end"   // SBS 고릴라
+                "intent:#Intent;package=com.imbc.mini;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10000000;end",    // MBC mini
+                "intent:#Intent;package=kr.co.kbs.kong;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10000000;end",   // KBS Kong
+                "intent:#Intent;package=kr.co.ebs.bandi;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10000000;end",  // EBS 반디
+                "intent:#Intent;package=com.sbs.gorilla;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10000000;end"   // SBS 고릴라
             ];
             
             // 0에서 3 사이의 난수 생성하여 무작위 추출
